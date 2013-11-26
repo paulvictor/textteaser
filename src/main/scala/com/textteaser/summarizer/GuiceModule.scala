@@ -28,7 +28,8 @@ class GuiceModule(config: Config, dummyKeywordService: Boolean = false) extends 
   @Provides
   @Singleton
   def sentenceDetector = {
-    val model = new SentenceModel(new FileInputStream("corpus/corpusEN.bin"))
+    val corpusStream = getClass.getResourceAsStream("/resources/corpus/corpusEN.bin")
+    val model = new SentenceModel(corpusStream)
     new SentenceDetectorME(model)
   }
 
