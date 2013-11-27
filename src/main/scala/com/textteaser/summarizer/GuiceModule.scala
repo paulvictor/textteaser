@@ -7,6 +7,7 @@ import opennlp.tools.sentdetect._
 import java.io.FileInputStream
 import com.mongodb._
 import org.slf4j.LoggerFactory
+import com.textteaser.summarizer.ResourceAccessor
 
 class GuiceModule(config: Config, dummyKeywordService: Boolean = false) extends AbstractModule with ScalaModule {
   def configure {
@@ -28,7 +29,7 @@ class GuiceModule(config: Config, dummyKeywordService: Boolean = false) extends 
   @Provides
   @Singleton
   def sentenceDetector = {
-    val corpusStream = getClass.getResourceAsStream("/resources/corpus/corpusEN.bin")
+    val corpusStream = ResourceAccessor.corpusEN
     val model = new SentenceModel(corpusStream)
     new SentenceDetectorME(model)
   }
